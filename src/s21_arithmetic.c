@@ -73,12 +73,12 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
     s21_set_bit(&value_2, 127, 0);
     error = s21_add(value_1, value_2, result);
   } else {
-    // if (s21_is_greater_or_equal(value_2, value_1)) {
-    //   s21_decimal temporary2 = value_1;
-    //   value_1 = value_2;
-    //   value_2 = temporary2;
-    //   s21_set_sign(result);
-    // }
+    if (s21_is_greater_or_equal(value_2, value_1)) {
+      s21_decimal temporary2 = value_1;
+      value_1 = value_2;
+      value_2 = temporary2;
+      s21_set_sign(result);
+    }
     s21_big_decimal v1 = {0}, v2 = {0}, r = {0};
     s21_import_to_big_decimal(value_1, &v1);
     s21_import_to_big_decimal(value_2, &v2);
