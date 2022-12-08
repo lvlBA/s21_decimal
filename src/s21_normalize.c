@@ -32,3 +32,21 @@ void s21_normalize(s21_decimal *d1, s21_decimal *d2) {
     s21_normalize_scale_upper(d1, -norm);
   }
 }
+
+void s21_big_normalization(s21_big_decimal *value_1, s21_big_decimal *value_2,
+                           int diff) {
+  s21_big_decimal ten = {{10, 0, 0, 0, 0, 0, 0, 0}}, tmp = {0};
+  if (diff > 0) {
+    while (diff-- > 0) {
+      s21_mul_big_decimal(*value_2, ten, &tmp);
+      *value_2 = tmp;
+      s21_zero_big_decimal(&tmp);
+    }
+  } else if (diff < 0) {
+    while (diff++ < 0) {
+      s21_mul_big_decimal(*value_1, ten, &tmp);
+      *value_1 = tmp;
+      s21_zero_big_decimal(&tmp);
+    }
+  }
+}

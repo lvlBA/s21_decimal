@@ -1860,17 +1860,6 @@ Suite* suite_add(void) {
   tcase_add_test(tc, add_test_19);
   tcase_add_test(tc, add_test_20);
 
-  // tcase_add_test(tc, s21_add_int_21);
-  // tcase_add_test(tc, s21_add_int_22);
-  // tcase_add_test(tc, s21_add_int_23);
-  // tcase_add_test(tc, s21_add_int_24);
-  // tcase_add_test(tc, s21_add_int_25);
-  // tcase_add_test(tc, s21_add_inf_26);
-  // tcase_add_test(tc, s21_add_neg_inf_27);
-  // tcase_add_test(tc, target_float);
-  // tcase_add_test(tc, add_test_too_big);
-  // tcase_add_test(tc, add_test_too_small);
-
   tcase_add_test(tc, s21_test_decimal_add_0);
   tcase_add_test(tc, s21_test_decimal_add_1);
   tcase_add_test(tc, s21_test_decimal_add_2);

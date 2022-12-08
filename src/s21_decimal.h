@@ -84,4 +84,33 @@ void s21_normalize_scale_upper(s21_decimal *d, int norm);
 void s21_copy_decimal(s21_decimal *d1, s21_decimal d2);
 /*------------------------       Normalize      ------------------------- */
 
+/*------------------------       Big Decimal      ----------------------- */
+typedef struct {
+  unsigned bits[8];
+} s21_big_decimal;
+
+/*------------------------ Operations with bits ------------------------- */
+
+int s21_get_bit_big(s21_big_decimal src, int index);
+void s21_set_bit_big(s21_big_decimal *dst, int index, int bit);
+int s21_shift_big_dec_left(s21_big_decimal *dst, int num);
+void s21_shift_big_dec_right(s21_big_decimal *dst, int num);
+void s21_import_to_big_decimal(s21_decimal value_1, s21_big_decimal *value_2);
+void s21_import_to_small_decimal(s21_decimal *value_1, s21_big_decimal value_2);
+void s21_big_normalization(s21_big_decimal *value_1, s21_big_decimal *value_2,
+                           int diff);
+void s21_zero_big_decimal(s21_big_decimal *dst);
+
+/*------------------------ Operations with bits ------------------------- */
+void s21_add_big_decimal(s21_big_decimal value_1, s21_big_decimal value_2,
+                         s21_big_decimal *result);
+void s21_sub_big_decimal(s21_big_decimal value_1, s21_big_decimal value_2,
+                         s21_big_decimal *result);
+int s21_mul_big_decimal(s21_big_decimal value_1, s21_big_decimal value_2,
+                        s21_big_decimal *result);
+
+/*------------------------       Big Decimal      ----------------------- */
+
+void s21_printf_decimal(s21_decimal d);
+
 #endif  // _SRC_S21_DECIMAL_H_
