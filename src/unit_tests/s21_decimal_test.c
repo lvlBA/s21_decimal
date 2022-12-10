@@ -4,7 +4,7 @@ void run_tests(void) {
   Suite *list_cases[] = {
       suite_add(), suite_sub(), suite_mul(),
       //  suite_mod(),
-      //  suite_div(),
+      // suite_div(),
 
       suite_is_less(), suite_is_less_or_equal(), suite_is_greater(),
       suite_is_greater_or_equal(), suite_is_equal(), suite_is_not_equal(),

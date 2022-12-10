@@ -67,10 +67,10 @@ int s21_from_float_to_decimal(float src, s21_decimal *dst) {
 /// @return 0 - OK 1 - ошибка конвертации
 int s21_from_decimal_to_float(s21_decimal src, float *dst) {
   double temp = (double)*dst;
-  for (int i = 0; i < 96; i++) {
+  for (int i = 95; i >= 0; i--) {
     temp += s21_get_bit(src, i) * pow(2, i);
   }
-  temp = temp * pow(10, -s21_get_scale(&src));
+  temp = temp * pow(10, -s21_get_scale(src));
   if (s21_get_bit(src, 127)) temp = temp * (-1);
   *dst = temp;
   return 0;
@@ -82,7 +82,7 @@ int s21_from_decimal_to_float(s21_decimal src, float *dst) {
 /// @return
 int s21_from_decimal_to_int(s21_decimal src, int *dst) {
   int error = 0;
-  int scale = s21_get_scale(&src);
+  int scale = s21_get_scale(src);
   if (src.bits[1] || src.bits[2]) {
     error = 1;
   } else {
@@ -109,7 +109,7 @@ int s21_from_decimal_to_double(s21_decimal src, long double *dst) {
   for (int i = 0; i < 96; i++) {
     temp += s21_get_bit(src, i) * pow(2, i);
   }
-  temp = temp * pow(10, -s21_get_scale(&src));
+  temp = temp * pow(10, -s21_get_scale(src));
   if (s21_get_bit(src, 127)) temp = temp * (-1);
   *dst = temp;
   return 0;

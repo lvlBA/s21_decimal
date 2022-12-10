@@ -17,7 +17,7 @@ void s21_normalize_scale_upper(s21_decimal *d, int norm) {
   s21_decimal _res = {0};
   s21_from_float_to_decimal(pow(10, norm), &_norm);
   s21_mul(*d, _norm, &_res);
-  s21_set_scale(&_res, s21_get_scale(d) + norm);
+  s21_set_scale(&_res, s21_get_scale(*d) + norm);
   s21_copy_decimal(d, _res);
 }
 
@@ -25,7 +25,7 @@ void s21_normalize_scale_upper(s21_decimal *d, int norm) {
 /// @param d1
 /// @param d2
 void s21_normalize(s21_decimal *d1, s21_decimal *d2) {
-  int norm = s21_get_scale(d1) - s21_get_scale(d2);
+  int norm = s21_get_scale(*d1) - s21_get_scale(*d2);
   if (norm > 0) {
     s21_normalize_scale_upper(d2, norm);
   } else if (norm < 0) {
@@ -33,20 +33,20 @@ void s21_normalize(s21_decimal *d1, s21_decimal *d2) {
   }
 }
 
-void s21_big_normalization(s21_big_decimal *value_1, s21_big_decimal *value_2,
-                           int diff) {
-  s21_big_decimal ten = {{10, 0, 0, 0, 0, 0, 0, 0}}, tmp = {0};
+void s21_normalization(s21_big_decimal *value_1, s21_big_decimal *value_2,
+                       int diff) {
   if (diff > 0) {
-    while (diff-- > 0) {
-      s21_mul_big_decimal(*value_2, ten, &tmp);
-      *value_2 = tmp;
-      s21_zero_big_decimal(&tmp);
-    }
+    s21_increase_scale_big_decimal(value_2, diff);
   } else if (diff < 0) {
-    while (diff++ < 0) {
-      s21_mul_big_decimal(*value_1, ten, &tmp);
-      *value_1 = tmp;
-      s21_zero_big_decimal(&tmp);
-    }
+    s21_increase_scale_big_decimal(value_1, -diff);
   }
+}
+
+int s21_post_normalization(s21_big_decimal *result, int scale) {
+  while (scale > 28 || result->bits[4] || result->bits[5] || result->bits[6] ||
+         result->bits[7]) {
+    s21_decreace_scale_big_decimal(result, 1);
+    scale--;
+  }
+  return scale;
 }

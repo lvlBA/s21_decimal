@@ -7,6 +7,7 @@ void s21_zero_big_decimal(s21_big_decimal* dst) {
 
 /// @brief Обнуление decimal
 /// @param dst
+// Зануление малой структуры
 void s21_zero_decimal(s21_decimal* dst) {
   dst->bits[0] = dst->bits[1] = dst->bits[2] = dst->bits[3] = 0;
 }
