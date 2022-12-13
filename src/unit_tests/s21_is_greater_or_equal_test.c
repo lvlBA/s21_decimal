@@ -157,15 +157,6 @@ START_TEST(is_greater_or_equal_15) {
 }
 END_TEST
 
-START_TEST(is_greater_or_equal_16) {
-  s21_decimal value_1 = {{123456u, 654u, 0xFFFFFFFF, 0}};
-  s21_decimal value_2 = {{123456u, 654u, 0xFFFFFFFF, 0}};
-  s21_set_scale(&value_2, 2);
-  int return_value = s21_is_greater_or_equal(value_1, value_2);
-  ck_assert_int_eq(return_value, 1);
-}
-END_TEST
-
 START_TEST(is_greater_or_equal_17) {
   s21_decimal value_1 = {{123456u, 654u, 0xFFFFFFFF, 0}};
   s21_decimal value_2 = {{123456u, 654u, 0xFFFFFFFF, 0}};
@@ -374,7 +365,6 @@ Suite *suite_is_greater_or_equal(void) {
   tcase_add_test(tc, is_greater_or_equal_13);
   tcase_add_test(tc, is_greater_or_equal_14);
   tcase_add_test(tc, is_greater_or_equal_15);
-  tcase_add_test(tc, is_greater_or_equal_16);
   tcase_add_test(tc, is_greater_or_equal_17);
   tcase_add_test(tc, is_greater_or_equal_18);
 

@@ -25,7 +25,7 @@ END_TEST
 
 START_TEST(negate_1) {
   s21_decimal val = {{2, 0, 0, ~(UINT_MAX / 2)}};
-  s21_decimal res = {{0}};
+  s21_decimal res;
   int sign_before = s21_get_sign(val);
   s21_negate(val, &res);
   int sign_after = s21_get_sign(res);

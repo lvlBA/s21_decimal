@@ -1,6 +1,5 @@
 CC=gcc
-
-STDFLAGS=-Wall -Werror -Wextra -std=c11 
+STDFLAGS=-Wall -Werror -Wextra -std=c11 #-fsanitize=address
 TST_CFLAGS:= -g $(STDFLAGS)
 GCOV_FLAGS?=-fprofile-arcs -ftest-coverage
 LINUX_FLAGS=-lsubunit -lrt -lpthread -lm
@@ -27,7 +26,7 @@ ifeq ($(OS),Darwin)
 	OPEN_CMD = open
 endif
 
-all: test $(TARGET) gcov_report
+all: $(TARGET)
 
 $(TARGET): ${SRC}
 	$(CC) -c $(STDFLAGS) $(SRC)
@@ -42,7 +41,7 @@ ifeq ($(OS), Darwin)
 else
 	${CC} $(STDFLAGS) ${TEST_SRC} $< -o unit_test $(LIBS) $(LINUX_FLAGS)
 endif
-	./unit_test
+	./unit_test 0
 
 gcov_report: clean_test
 ifeq ($(OS), Darwin)
@@ -54,6 +53,10 @@ endif
 	lcov -t "stest" -o s21_test.info -c -d .
 	genhtml -o report s21_test.info
 	$(OPEN_CMD) ./report/index.html
+
+leaks: $(TARGET)
+	$(CC) $(TST_CFLAGS) ${TEST_SRC} $< -o test $(LIBS)
+	leaks -atExit -- ./test
 
 valgrind: $(TARGET)
 	$(CC) $(TST_CFLAGS) ${TEST_SRC} $< -o test $(LIBS) $(LINUX_FLAGS)
@@ -90,6 +93,7 @@ clean_test:
 	rm -rf *.info
 	rm -rf test
 	rm -rf report
+	rm -rf test.dSYM
 
 clean: clean_lib clean_lib clean_test clean_obj
 	rm -rf unit_test

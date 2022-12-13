@@ -226,15 +226,6 @@ START_TEST(is_less_21) {
 }
 END_TEST
 
-START_TEST(is_less_22) {
-  s21_decimal value_1 = {{123456u, 654u, 0xFFFFFFFF, 0}};
-  s21_decimal value_2 = {{123456u, 654u, 0xFFFFFFFF, 0}};
-  s21_set_scale(&value_2, 2);
-  int return_value = s21_is_less(value_1, value_2);
-  ck_assert_int_eq(return_value, 0);
-}
-END_TEST
-
 START_TEST(is_less_23) {
   float num1 = 1.375342323523;
   float num2 = 1.39;
@@ -376,7 +367,6 @@ Suite *suite_is_less(void) {
   tcase_add_test(tc, is_less_19);
   tcase_add_test(tc, is_less_20);
   tcase_add_test(tc, is_less_21);
-  tcase_add_test(tc, is_less_22);
 
   /*Serzhunya*/
   tcase_add_test(tc, is_less_23);

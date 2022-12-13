@@ -32,21 +32,3 @@ void s21_normalize(s21_decimal *d1, s21_decimal *d2) {
     s21_normalize_scale_upper(d1, -norm);
   }
 }
-
-void s21_normalization(s21_big_decimal *value_1, s21_big_decimal *value_2,
-                       int diff) {
-  if (diff > 0) {
-    s21_increase_scale_big_decimal(value_2, diff);
-  } else if (diff < 0) {
-    s21_increase_scale_big_decimal(value_1, -diff);
-  }
-}
-
-int s21_post_normalization(s21_big_decimal *result, int scale) {
-  while (scale > 28 || result->bits[4] || result->bits[5] || result->bits[6] ||
-         result->bits[7]) {
-    s21_decreace_scale_big_decimal(result, 1);
-    scale--;
-  }
-  return scale;
-}

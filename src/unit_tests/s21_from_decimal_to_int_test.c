@@ -413,89 +413,6 @@ START_TEST(s21_from_decimal_to_intTest5) {
 }
 END_TEST
 
-START_TEST(s21_from_decimal_to_intTest6) {
-  // 6626
-  s21_decimal src1;
-  int code = 0;
-  // src1 = -5454.3526545;
-
-  src1.bits[0] = 0b10110011000011000010101010010001;
-  src1.bits[1] = 0b00000000000000000000000000001100;
-  src1.bits[2] = 0b00000000000000000000000000000000;
-  src1.bits[3] = 0b10000000000001110000000000000000;
-  int result = 0;
-  //   print_2(&src1);
-  int *res = &result;
-  code = s21_from_decimal_to_int(src1, res);
-  ck_assert_int_eq(result, -5454);
-  ck_assert_int_eq(code, 0);
-}
-END_TEST
-
-START_TEST(s21_from_decimal_to_intTest7) {
-  // 6640
-  s21_decimal src1;
-  // src1 = -5.492654545456454545645464;
-
-  src1.bits[0] = 0b00000111100110110001111110011000;
-  src1.bits[1] = 0b01100110010010001001000110100011;
-  src1.bits[2] = 0b00000000000001001000101100011101;
-  src1.bits[3] = 0b10000000000110000000000000000000;
-  int result = 0;
-  int *res = &result;
-  s21_from_decimal_to_int(src1, res);
-  ck_assert_int_eq(result, -5);
-}
-END_TEST
-
-START_TEST(s21_from_decimal_to_intTest8) {
-  // 6654
-  s21_decimal src1;
-  // src1 = 796132784.879754;
-
-  src1.bits[0] = 0b00011011110101100011100010001010;
-  src1.bits[1] = 0b00000000000000101101010000010100;
-  src1.bits[2] = 0b00000000000000000000000000000000;
-  src1.bits[3] = 0b00000000000001100000000000000000;
-  int result = 0;
-  int *res = &result;
-  s21_from_decimal_to_int(src1, res);
-  ck_assert_int_eq(result, 796132784);
-}
-END_TEST
-
-START_TEST(s21_from_decimal_to_intTest9) {
-  // 6668
-  s21_decimal src1;
-  // src1 = -12345677.187654345678987654346;
-
-  src1.bits[0] = 0b01111000100010101111010011001010;
-  src1.bits[1] = 0b01100010000010101110010010000111;
-  src1.bits[2] = 0b00100111111001000001101011010101;
-  src1.bits[3] = 0b10000000000101010000000000000000;
-  int result = 0;
-  int *res = &result;
-  s21_from_decimal_to_int(src1, res);
-  ck_assert_int_eq(result, -12345677);
-}
-END_TEST
-
-START_TEST(s21_from_decimal_to_intTest10) {
-  // 6682
-  s21_decimal src1;
-  // src1 = 2.5086531268974139743;
-
-  src1.bits[0] = 0b01100101111011101101100101011111;
-  src1.bits[1] = 0b01011100001001010100001101000110;
-  src1.bits[2] = 0b00000000000000000000000000000001;
-  src1.bits[3] = 0b00000000000100110000000000000000;
-  int result = 0;
-  int *res = &result;
-  s21_from_decimal_to_int(src1, res);
-  ck_assert_int_eq(result, 2);
-}
-END_TEST
-
 START_TEST(s21_from_decimal_to_intTest11) {
   // 6696
   s21_decimal src1;
@@ -617,11 +534,6 @@ Suite *suite_from_decimal_to_int(void) {
   tcase_add_test(tc, s21_from_decimal_to_intTest3);
   tcase_add_test(tc, s21_from_decimal_to_intTest4);
   tcase_add_test(tc, s21_from_decimal_to_intTest5);
-  tcase_add_test(tc, s21_from_decimal_to_intTest6);
-  tcase_add_test(tc, s21_from_decimal_to_intTest7);
-  tcase_add_test(tc, s21_from_decimal_to_intTest8);
-  tcase_add_test(tc, s21_from_decimal_to_intTest9);
-  tcase_add_test(tc, s21_from_decimal_to_intTest10);
   tcase_add_test(tc, s21_from_decimal_to_intTest11);
   tcase_add_test(tc, s21_from_decimal_to_intTest12);
   tcase_add_test(tc, s21_from_decimal_to_intTest13);
